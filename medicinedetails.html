@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>மருந்து தேடல் / Medicine Search</title>
+    <link rel="stylesheet" href="medicinedetails.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="index.html" aria-label="Helpio home">
+            <img src="logo.png" alt="Logo">
+            <span class="brand-text">
+                <strong>Helpio</strong>
+                <small>HealthConnect</small>
+            </span>
+        </a>
+
+        <button class="lang-switch" id="langBtn" type="button" onclick="toggleLanguage()">
+            <i class="fa-solid fa-globe"></i>
+            <span id="langBtnLabel">தமிழ் / English</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </header>
+
+    <main class="page">
+        <section class="hero-card">
+            <div class="hero-art" aria-hidden="true">
+                <div class="medicine-bottle">
+                    <div class="cap"></div>
+                    <div class="bottle-body">
+                        <div class="pill cross"></div>
+                    </div>
+                    <div class="leaf leaf-left"></div>
+                    <div class="leaf leaf-right"></div>
+                    <div class="pill pill-left"></div>
+                    <div class="pill pill-right"></div>
+                </div>
+            </div>
+
+            <div class="hero-copy">
+                <h1 id="title">மருந்து தேடல் / Medicine Search</h1>
+                <p class="hero-subtitle" id="heroSubtitle">உங்கள் தேவைக்குச் சிறந்த மருந்துகளை கண்டுபிடியுங்கள்</p>
+                <p class="hero-description" id="heroDescription">Find medicines quickly and get the best results</p>
+            </div>
+        </section>
+
+        <section class="search-panel">
+            <div class="search-shell">
+                <div class="search-row">
+                    <div class="search-icon"><i class="fa-solid fa-capsules"></i></div>
+                    <div class="search-field">
+                        <label for="searchInput" id="medicineLabel">மருந்தின் பெயரை உள்ளிடவும்</label>
+                        <input type="text" id="searchInput" placeholder="Enter medicine name (e.g., Crocin, Paracetamol)" oninput="showSuggestions()" autocomplete="off">
+                    </div>
+                    <button class="field-action" type="button" onclick="clearSearchInput()" aria-label="Clear medicine input">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="suggestions" id="suggestions"></div>
+
+                <div class="search-row">
+                    <div class="search-icon"><i class="fa-solid fa-store"></i></div>
+                    <div class="search-field">
+                        <label for="locationInput" id="locationLabel">உங்கள் இருப்பிடத்தில் உள்ளிடவும் (விரும்பினால்)</label>
+                        <input type="text" id="locationInput" placeholder="Enter your location (optional)">
+                    </div>
+                    <button class="field-action" type="button" onclick="useCurrentLocation()" aria-label="Use current location">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                    </button>
+                </div>
+
+                <button id="searchBtn" class="search-btn" type="button" onclick="searchMedicine()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span id="searchBtnLabel">தேடுக / Search Medicines</span>
+                </button>
+                <div class="loading" id="loadingSpinner">🔍 Searching...</div>
+            </div>
+        </section>
+
+        <section class="popular-section">
+            <h2 id="popularTitle">பிரபலமான தேடல்கள் / Popular Searches</h2>
+            <div class="chip-row" id="popularSearches"></div>
+        </section>
+
+        <section class="features-section">
+            <h2 id="featuresTitle">மேலும் அம்சங்கள் / More Features</h2>
+            <div class="features-grid">
+                <button class="feature-card green" type="button" onclick="showAlternativeMedicines()">
+                    <span class="feature-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></span>
+                    <strong id="altTitle">மாற்று மருந்துகள்</strong>
+                    <span id="altSubtitle">Alternative Medicines</span>
+                    <small id="altHint">View alternative medicines</small>
+                    <span class="feature-arrow">→</span>
+                </button>
+                <button class="feature-card blue" type="button" onclick="showMedicineInfo()">
+                    <span class="feature-icon"><i class="fa-solid fa-circle-info"></i></span>
+                    <strong id="infoTitle">மருந்து விவரம்</strong>
+                    <span id="infoSubtitle">Medicine Information</span>
+                    <small id="infoHint">Complete medicine details</small>
+                    <span class="feature-arrow">→</span>
+                </button>
+                <button class="feature-card purple" type="button" onclick="setMedicineReminder()">
+                    <span class="feature-icon"><i class="fa-regular fa-bell"></i></span>
+                    <strong id="reminderTitle">மருந்து நினைவூட்டல்</strong>
+                    <span id="reminderSubtitle">Medicine Reminder</span>
+                    <small id="reminderHint">Set medicine reminders</small>
+                    <span class="feature-arrow">→</span>
+                </button>
+                <button class="feature-card orange" type="button" onclick="showNearbyStores()">
+                    <span class="feature-icon"><i class="fa-solid fa-store"></i></span>
+                    <strong id="storeTitle">அருகிலுள்ள கடைகள்</strong>
+                    <span id="storeSubtitle">Nearby Stores</span>
+                    <small id="storeHint">Find nearby medical stores</small>
+                    <span class="feature-arrow">→</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="safety-banner">
+            <div class="safety-copy">
+                <h2 id="safetyTitle">உங்கள் உடல்நலம் எங்கள் முன்னுரிமை</h2>
+                <strong id="safetyLead">Your health is our priority</strong>
+                <p id="safetyBody">நம்பமான தகவல், சிறந்த சேவை | Trusted information, better care</p>
+            </div>
+            <div class="safety-illustration" aria-hidden="true">
+                <div class="checklist"></div>
+                <div class="shield"></div>
+            </div>
+        </section>
+
+        <section class="trust-row">
+            <div class="trust-item"><i class="fa-solid fa-lock"></i><span id="trustOne">உங்கள் தேடல்கள் பாதுகாப்பாக இருக்கும்</span></div>
+            <div class="trust-item"><i class="fa-solid fa-star-of-life"></i><span id="trustTwo">சரியான மற்றும் நம்பகமான தகவல்</span></div>
+            <div class="trust-item"><i class="fa-solid fa-heart"></i><span id="trustThree">Your health, our service</span></div>
+        </section>
+
+        <section class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2 id="resultsTitle">தேடல் முடிவுகள் / Search Results</h2>
+                <p id="resultsHint">Search a medicine to see details, warnings, and safe-use guidance.</p>
+            </div>
+            <div id="output" class="output empty-state">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <p id="emptyText">Type a medicine name or tap one of the popular searches.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="medicinedetails.js"></script>
+</body>
+</html>
